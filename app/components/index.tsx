@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 'use client'
-import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import produce, { setAutoFreeze } from 'immer'
-import { useBoolean, useGetState } from 'ahooks'
-import useConversation from '@/hooks/use-conversation'
+import AppUnavailable from '@/app/components/app-unavailable'
+import Loading from '@/app/components/base/loading'
 import Toast from '@/app/components/base/toast'
-import Sidebar from '@/app/components/sidebar'
+import Chat from '@/app/components/chat'
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
+import Sidebar from '@/app/components/sidebar'
+import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/config'
+import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
+import useConversation from '@/hooks/use-conversation'
+import { setLocaleOnClient } from '@/i18n/client'
 import { fetchAppParams, fetchChatList, fetchConversations, generationConversationName, sendChatMessage, updateFeedback } from '@/service'
 import type { ChatItem, ConversationItem, Feedbacktype, PromptConfig, VisionFile, VisionSettings } from '@/types/app'
 import { Resolution, TransferMethod, WorkflowRunningStatus } from '@/types/app'
-import Chat from '@/app/components/chat'
-import { setLocaleOnClient } from '@/i18n/client'
-import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
-import Loading from '@/app/components/base/loading'
-import { replaceVarWithValues, userInputsFormToPromptVariables } from '@/utils/prompt'
-import AppUnavailable from '@/app/components/app-unavailable'
-import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/config'
 import type { Annotation as AnnotationType } from '@/types/log'
+import { replaceVarWithValues, userInputsFormToPromptVariables } from '@/utils/prompt'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
+import { useBoolean, useGetState } from 'ahooks'
+import produce, { setAutoFreeze } from 'immer'
+import type { FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import ChatBubble from './bubble'
 
 const Main: FC = () => {
   const { t } = useTranslation()
@@ -661,6 +662,7 @@ const Main: FC = () => {
           }
         </div>
       </div>
+      <ChatBubble />
     </div>
   )
 }
