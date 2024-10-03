@@ -23,7 +23,7 @@ const AppUnavailable: FC<IAppUnavailableProps> = ({
         style={{
           borderRight: '1px solid rgba(0,0,0,.3)',
         }}>{(errMessage || isUnknownReason) ? 500 : 404}</h1>
-      <div className='text-sm'>{message}</div>
+      <div className='text-xl'>{message}</div>
     </div>
   )
 }
